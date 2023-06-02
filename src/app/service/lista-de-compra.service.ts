@@ -40,14 +40,26 @@ export class ListaDeCompraService {
     }
 
     criarItem(nome: string) {
-        const id = Number(this.listaDeCompra[this.listaDeCompra.length - 1]) + 1;
+        const id = this.listaDeCompra.length + 1;
         const item: Item = {
             id,
             nome,
             data: new Date().toLocaleString("pt-BR"),
             comprado: false,
         };
+        console.log(id, item);
 
         return item;
+    }
+
+    editar(itemAntigo: Item, nome: string) {
+        const item = itemAntigo && this.listaDeCompra.find((item) => item.id === itemAntigo.id);
+        const index = this.listaDeCompra.findIndex((item) => item.id === itemAntigo.id);
+
+        if (item) {
+            item.nome = nome;
+            item.data = new Date().toLocaleString("pt-BR");
+            this.listaDeCompra[index] = item;
+        }
     }
 }
