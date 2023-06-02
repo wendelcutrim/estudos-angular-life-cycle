@@ -5,29 +5,11 @@ import { Injectable } from "@angular/core";
     providedIn: "root",
 })
 export class ListaDeCompraService {
-    private listaDeCompra: Item[] = [
-        {
-            id: 1,
-            nome: "Queijo prato",
-            data: "Segunda-feira (31/10/2022) às 08:30",
-            comprado: false,
-        },
-        {
-            id: 2,
-            nome: "Leite integral",
-            data: "Segunda-feira (31/10/2022) às 08:30",
-            comprado: false,
-        },
-        {
-            id: 3,
-            nome: "Mamão papaia",
-            data: "Segunda-feira (31/10/2022) às 08:30",
-            comprado: true,
-        },
-    ];
+    private listaDeCompra: Item[];
 
     constructor() {
         console.log("Instanciando dependências necessárias para o serviço.");
+        this.listaDeCompra = JSON.parse(localStorage.getItem("items") || "[]");
     }
 
     getListaDeCompra() {
@@ -37,6 +19,9 @@ export class ListaDeCompraService {
     setListaDeCompra(form: string) {
         const item = this.criarItem(form);
         this.listaDeCompra.push(item);
+
+        const listaJson = JSON.stringify(this.listaDeCompra);
+        localStorage.setItem("items", listaJson);
     }
 
     criarItem(nome: string) {
@@ -60,6 +45,8 @@ export class ListaDeCompraService {
             item.nome = nome;
             item.data = new Date().toLocaleString("pt-BR");
             this.listaDeCompra[index] = item;
+            const listaJson = JSON.stringify(this.listaDeCompra);
+            localStorage.setItem("items", listaJson);
         }
     }
 }
