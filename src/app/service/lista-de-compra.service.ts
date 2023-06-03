@@ -49,4 +49,29 @@ export class ListaDeCompraService {
             localStorage.setItem("items", listaJson);
         }
     }
+
+    handleComprado(itemAntigo: Item) {
+        const item = itemAntigo && this.listaDeCompra.find((item) => item.id === itemAntigo.id);
+        const index = this.listaDeCompra.findIndex((item) => item.id === itemAntigo.id);
+
+        if (item) {
+            item.comprado = itemAntigo.comprado;
+            item.data = new Date().toLocaleString("pt-BR");
+            this.listaDeCompra[index] = item;
+            const listaJson = JSON.stringify(this.listaDeCompra);
+            localStorage.setItem("items", listaJson);
+        }
+    }
+
+    deletar(id: string | number) {
+        const index = this.listaDeCompra.findIndex((item) => item.id === id);
+        this.listaDeCompra.splice(index, 1);
+        const listaJson = JSON.stringify(this.listaDeCompra);
+        localStorage.setItem("items", listaJson);
+    }
+
+    limparLista() {
+        this.listaDeCompra = [];
+        localStorage.setItem("items", "[]");
+    }
 }

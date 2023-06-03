@@ -1,8 +1,8 @@
-<input class="checkbox" type="checkbox" name="comprado" id="comprado" [checked]="item.comprado" />
+<input class="checkbox" type="checkbox" name="comprado" id="comprado" [checked]="item.comprado" (change)="checarItem()" />
 <p class="description">{{ item.nome }}</p>
 <div class="d-contents" *ngIf="!item.comprado">
     <button>
-        <fa-icon class="delete-icon" [icon]="faTrash"></fa-icon>
+        <fa-icon class="delete-icon" [icon]="faTrash" (click)="deletarItem()"></fa-icon>
     </button>
     <button>
         <fa-icon class="edit-icon" [icon]="faPen" (click)="editarItem()"></fa-icon>
